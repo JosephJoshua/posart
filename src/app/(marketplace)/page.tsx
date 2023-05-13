@@ -28,12 +28,12 @@ const HomePage = () => {
         </div>
       </div>
 
-      <section className="mt-6 grid grid-cols-4 gap-8">
+      <section className="mt-6 place-items-center grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array.from({ length: 10 }, (_, idx) => (
           <Link href="/products/1" key={idx}>
             <article>
               <Image
-                className="select-none w-full mb-2"
+                className="select-none w-full max-w-[300px] mb-2"
                 src="/thumbnail.webp"
                 alt=""
                 width="350"

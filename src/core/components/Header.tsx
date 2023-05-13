@@ -13,57 +13,67 @@ const Header: FC = () => {
   };
 
   return (
-    <header className="px-16 py-4 flex items-center gap-6 sticky">
-      <h1 className="text-2xl">Posart</h1>
+    <header className="px-16 py-4 sticky flex flex-col gap-2">
+      <div className="flex items-center gap-6">
+        <h1 className="text-2xl flex-1 md:flex-none">Posart</h1>
 
-      <form className="flex-1">
+        <form className="flex-1 hidden md:block">
+          <input
+            type="text"
+            placeholder="Cari karya"
+            className="w-full outline-0 border-b border-b-gray-300 py-1 transition duration-300 placeholder:transition placeholder:duration-300 placeholder:text-gray-400 hover:border-b-gray-900 hover:placeholder:text-gray-900 focus-visible:border-b-gray-900 focus-visible:placeholder:text-gray-900"
+          />
+        </form>
+
+        <div className="flex gap-2 text-sm items-center">
+          {session === null ? (
+            <>
+              <Link
+                href="/login"
+                className="border border-black rounded-full px-6 py-1 transition duration-300 hover:bg-primary hover:text-white hover:border-primary"
+              >
+                Masuk
+              </Link>
+
+              <Link
+                href="/login"
+                className="bg-black text-white rounded-full px-6 py-1 transition duration-300 hover:bg-primary hover:border-primary"
+              >
+                Daftar
+              </Link>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={handleLogout}
+                className="border border-black rounded-full px-6 h-8 transition duration-300 hover:bg-primary hover:text-white hover:border-primary"
+              >
+                Keluar
+              </button>
+
+              {profile?.avatar_url == null ? (
+                <div className="w-12 h-12 rounded-full bg-gray-300"></div>
+              ) : (
+                <Image
+                  src={profile.avatar_url}
+                  alt=""
+                  className="w-12 h-12 rounded-full"
+                  width="48"
+                  height="48"
+                />
+              )}
+            </>
+          )}
+        </div>
+      </div>
+
+      <form className="flex-1 block md:hidden">
         <input
           type="text"
           placeholder="Cari karya"
           className="w-full outline-0 border-b border-b-gray-300 py-1 transition duration-300 placeholder:transition placeholder:duration-300 placeholder:text-gray-400 hover:border-b-gray-900 hover:placeholder:text-gray-900 focus-visible:border-b-gray-900 focus-visible:placeholder:text-gray-900"
         />
       </form>
-
-      <div className="flex gap-2 text-sm items-center">
-        {session === null ? (
-          <>
-            <Link
-              href="/login"
-              className="border border-black rounded-full px-6 py-1 transition duration-300 hover:bg-primary hover:text-white hover:border-primary"
-            >
-              Masuk
-            </Link>
-
-            <Link
-              href="/login"
-              className="bg-black text-white rounded-full px-6 py-1 transition duration-300 hover:bg-primary hover:border-primary"
-            >
-              Daftar
-            </Link>
-          </>
-        ) : (
-          <>
-            <button
-              onClick={handleLogout}
-              className="border border-black rounded-full px-6 h-8 transition duration-300 hover:bg-primary hover:text-white hover:border-primary"
-            >
-              Keluar
-            </button>
-
-            {profile?.avatar_url == null ? (
-              <div className="w-12 h-12 rounded-full bg-gray-300"></div>
-            ) : (
-              <Image
-                src={profile.avatar_url}
-                alt=""
-                className="w-12 h-12 rounded-full"
-                width="48"
-                height="48"
-              />
-            )}
-          </>
-        )}
-      </div>
     </header>
   );
 };
