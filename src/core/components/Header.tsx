@@ -1,7 +1,16 @@
+'use client';
+
 import Link from 'next/link';
 import { FC } from 'react';
+import { useSupabase } from './SupabaseProvider';
 
 const Header: FC = () => {
+  const { session, supabase } = useSupabase();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
   return (
     <header className="px-16 py-4 flex items-center gap-6 sticky">
       <h1 className="text-2xl">Posart</h1>
@@ -14,24 +23,31 @@ const Header: FC = () => {
         />
       </form>
 
-      <nav className="flex gap-6 text-lg">
-        <Link href="/buy" className="transition-colors duration-300 hover:text-primary">
-          Beli
-        </Link>
-
-        <Link href="/sell" className="transition-colors duration-300 hover:text-primary">
-          Jual
-        </Link>
-      </nav>
-
       <div className="flex gap-2 text-sm">
-        <button className="border border-black rounded-full px-6 py-1 transition duration-300 hover:bg-primary hover:text-white hover:border-primary">
-          Masuk
-        </button>
+        {session === null ? (
+          <>
+            <Link
+              href="/login"
+              className="border border-black rounded-full px-6 py-1 transition duration-300 hover:bg-primary hover:text-white hover:border-primary"
+            >
+              Masuk
+            </Link>
 
-        <button className="bg-black text-white rounded-full px-6 py-1 transition duration-300 hover:bg-primary hover:border-primary">
-          Daftar
-        </button>
+            <Link
+              href="/login"
+              className="bg-black text-white rounded-full px-6 py-1 transition duration-300 hover:bg-primary hover:border-primary"
+            >
+              Daftar
+            </Link>
+          </>
+        ) : (
+          <button
+            onClick={handleLogout}
+            className="border border-black rounded-full px-6 py-1 transition duration-300 hover:bg-primary hover:text-white hover:border-primary"
+          >
+            Keluar
+          </button>
+        )}
       </div>
     </header>
   );

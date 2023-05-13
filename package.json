@@ -9,6 +9,8 @@
     "lint": "next lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,json}\" --ignore-path .gitignore",
     "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:status": "supabase status",
     "supabase:gen-types": "supabase gen types typescript --local > src/core/types/db.ts"
   },
   "dependencies": {
