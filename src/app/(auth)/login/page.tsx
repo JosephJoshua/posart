@@ -1,6 +1,7 @@
 'use client';
 
 import { useSupabase } from '@/core/components/SupabaseProvider';
+import { signInWithGoogle } from '@/features/auth/signIn';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FC, FormEvent } from 'react';
@@ -15,17 +16,7 @@ const LoginPage: FC = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    });
-
-    /**
-     * TODO: error handling
-     */
-    if (error !== null) {
-      console.error(error);
-    }
+    return signInWithGoogle(supabase);
   };
 
   return (

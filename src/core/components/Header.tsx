@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { FC } from 'react';
 import { useSupabase } from './SupabaseProvider';
+import Image from 'next/image';
 
 const Header: FC = () => {
-  const { session, supabase } = useSupabase();
+  const { session, supabase, profile } = useSupabase();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -23,7 +24,7 @@ const Header: FC = () => {
         />
       </form>
 
-      <div className="flex gap-2 text-sm">
+      <div className="flex gap-2 text-sm items-center">
         {session === null ? (
           <>
             <Link
@@ -41,12 +42,26 @@ const Header: FC = () => {
             </Link>
           </>
         ) : (
-          <button
-            onClick={handleLogout}
-            className="border border-black rounded-full px-6 py-1 transition duration-300 hover:bg-primary hover:text-white hover:border-primary"
-          >
-            Keluar
-          </button>
+          <>
+            <button
+              onClick={handleLogout}
+              className="border border-black rounded-full px-6 h-8 transition duration-300 hover:bg-primary hover:text-white hover:border-primary"
+            >
+              Keluar
+            </button>
+
+            {profile?.avatar_url == null ? (
+              <div className="w-12 h-12 rounded-full bg-gray-300"></div>
+            ) : (
+              <Image
+                src={profile.avatar_url}
+                alt=""
+                className="w-12 h-12 rounded-full"
+                width="48"
+                height="48"
+              />
+            )}
+          </>
         )}
       </div>
     </header>

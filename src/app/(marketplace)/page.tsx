@@ -29,8 +29,8 @@ const HomePage = () => {
       </div>
 
       <section className="mt-6 grid grid-cols-4 gap-8">
-        {Array.from({ length: 10 }, () => (
-          <Link href="/products/1" key="">
+        {Array.from({ length: 10 }, (_, idx) => (
+          <Link href="/products/1" key={idx}>
             <article>
               <Image
                 className="select-none w-full mb-2"
