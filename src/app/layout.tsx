@@ -1,7 +1,10 @@
 import { FC, PropsWithChildren } from 'react';
-import './globals.css';
 import { Poppins } from 'next/font/google';
 import { SupabaseProvider } from '@/core/components/SupabaseProvider';
+
+import './globals.css';
+import Header from '@/core/components/Header';
+import Footer from '@/core/components/Footer';
 
 const poppins = Poppins({ weight: ['300', '400', '500', '600', '700'], subsets: ['latin'] });
 
@@ -16,7 +19,11 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <SupabaseProvider>{children}</SupabaseProvider>
+        <SupabaseProvider>
+          <Header />
+          {children}
+          <Footer />
+        </SupabaseProvider>
       </body>
     </html>
   );
